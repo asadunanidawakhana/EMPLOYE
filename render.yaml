@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: mac-digital-hr
+    env: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    healthCheckPath: /healthz
+    healthCheckInterval: 300
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+        value: your-jwt-secret-key-change-in-production
+      - key: PORT
+        value: '5000'
+      - key: PYTHONUNBUFFERED
+        value: '1'
+    autoDeploy: true
